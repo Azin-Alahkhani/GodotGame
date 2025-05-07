@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dc0ovew6gawiq"]
+[gd_scene load_steps=8 format=3 uid="uid://dc0ovew6gawiq"]
 
 [ext_resource type="Script" uid="uid://ceoeg4a7im8rw" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://d0er0esfs4nd6" path="res://mob.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://rddtj15vg1ni" path="res://player.tscn" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://8o61hu4806ir" path="res://hud.tscn" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://dd1xyunxenul5" path="res://art/House In a Forest Loop.ogg" id="5_7mycd"]
+[ext_resource type="AudioStream" uid="uid://hf1wrtlrcj6y" path="res://art/gameover.wav" id="6_272bh"]
 
 [sub_resource type="Curve2D" id="Curve2D_7mycd"]
 _data = {
@@ -15,10 +17,20 @@ point_count = 5
 script = ExtResource("1_h2yge")
 mob_scene = ExtResource("2_1bvp3")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.686639, 0.926139, 0.975421, 1)
+
 [node name="Player" parent="." instance=ExtResource("3_lquwl")]
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 
 [node name="ScoreTimer" type="Timer" parent="."]
 
@@ -36,6 +48,13 @@ curve = SubResource("Curve2D_7mycd")
 position = Vector2(0, 8)
 
 [node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7mycd")
+parameters/looping = false
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_272bh")
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
