@@ -7,6 +7,7 @@ var screen_size # Size of the game window.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("ready")
 	screen_size = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,6 +40,7 @@ func _process(delta):
 		$AnimatedSprite2D.animation = "up"
 		$AnimatedSprite2D.flip_v = velocity.y > 0
 func _on_body_entered(_body):
+	print("hit")
 	hide() # Player disappears after being hit.
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
